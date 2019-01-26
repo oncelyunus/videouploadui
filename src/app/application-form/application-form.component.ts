@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { VideoUploadService } from '../video-upload.service';
 
 @Component({
   selector: 'app-application-form',
@@ -12,7 +13,8 @@ export class ApplicationFormComponent implements OnInit {
   model: NgbDateStruct;
   date: {year: number, month: number};
 
-  constructor(private calendar: NgbCalendar,
+  constructor(private videoUploadService: VideoUploadService, 
+    private calendar: NgbCalendar,
      private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -37,5 +39,10 @@ export class ApplicationFormComponent implements OnInit {
     }
   }
 
+  fileUpload(event) {
+    alert('file selected');
+    var files = event.target.files; 
+    console.log(files);
+  }
 
 }
