@@ -41,8 +41,8 @@ export class ApplicationFormComponent implements OnInit {
 
   fileUpload(event) {
     alert('file selected');
-    var files = event.target.files; 
-    console.log(files);
+    var file = event.target.files[0]; 
+    this.videoUploadService.checkVideoSizeAndDuration(file);
   }
 
 }
