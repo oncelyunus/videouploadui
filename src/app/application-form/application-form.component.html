@@ -81,8 +81,11 @@
 
     <div class="row">
       <div class="form-group col-md-12">
-        <button type="button" class="btn btn-secondary btn-sm">Videonu Yükle</button>
-        <button type="button" class="btn btn-link" (click)="open(content)" >Video süresi ve video içeriği ile ilgili detaylar için tıklayın.</button>
+        <label for="file-upload" class="custom-file-upload">
+          <i class="fa fa-cloud-upload"></i> Videonu Yükle
+      </label>
+      <input id="file-upload" type="file" accept="video/*"/>
+      <button type="button" class="btn btn-link" (click)="open(content)" >Video süresi ve video içeriği ile ilgili detaylar için tıklayın.</button>
       </div>
     </div>
 
