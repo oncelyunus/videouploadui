@@ -1,0 +1,168 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="height:35px;">
+      <div class="text-center" style="font-size: 24px; color: #000000; font-weight: bold;">Başvuru Formu</div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="text-center" style="font-size: 14px; color: #000000;">Formu eksizlik doldurmanız gerekmektedir.</div>
+    </div>
+  </div>
+</div>
+
+<br/>
+<br/>
+
+<div class="container">
+
+  <form>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="studentnamesurname" style="font-size: 16px;">Öğrencinin Adı Soyadı</label>
+        <input type="text" class="form-control" id="studentnamesurname" aria-describedby="namesurname" />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="studentnamessmartphnonenumberrname" style="font-size: 16px;">Ceptelefonu Numarası</label>
+        <input type="text" class="form-control" id="smartphnonenumber" aria-describedby="smartphnonenumber" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="studentemail">E-Posta
+          <small style="font-size: 12px; color: #7D7D7D;"> (Sizinle e-mail yoluyla iletişime geçilecektir) </small>
+        </label>
+        <input type="email" class="form-control" id="studentemail">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="studentemailreply">E-Posta
+          <small style="font-size: 12px; color: #7D7D7D;"> (Tekrar) </small>
+        </label>
+        <input type="email" class="form-control" id="studentemailreply">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="shoolCity">Okulun Bulunduğu İl</label>
+        <select class="form-control" id="shoolCity">
+          <option>İstanbul</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="shooldistrict">Okulun Bulunduğu İlçe</label>
+        <select class="form-control" id="shooldistrict">
+          <option>Ataşehir</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="schoolname" style="font-size: 16px;">Okul Adı
+          <small style="font-size: 12px; color: #7D7D7D;">(Eksiksiz olarak, kısaltımadan yazılmalıdır)</small>
+        </label>
+        <input type="text" class="form-control" id="schoolname" aria-describedby="schoolname" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="studentBirthday" style="font-size: 16px;">Doğum Tarihi</label>
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="a" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <button type="button" class="btn btn-secondary btn-sm">Videonu Yükle</button>
+        <button type="button" class="btn btn-link" (click)="open(content)" >Video süresi ve video içeriği ile ilgili detaylar için tıklayın.</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="useragreement">
+          <label class="form-check-label" for="useragreement">
+           <span (click)="open(useragreementcontent)" style="cursor: pointer; color:#0056b3;">Kullanıcı Sözleşmesini</span> okudum ve kabul ediyorum.
+          </label>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="conditions">
+          <label class="form-check-label" for="conditions">
+            <span (click)="open(conditions)" style="cursor: pointer; color:#0056b3;">Katılım koşullarını</span> okudum ve kabul ediyorum.
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="form-group col-md-6">
+            <button type="button" class="btn btn-dark btn-lg">GÖNDER</button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <small> * Form ile ilgili sorularınız için, haftaiçi 09.00 - 18.00 arası 0216 418 43 97 numaramızdan bize ulaşabilirsiniz.</small>
+        </div>
+    </div>
+
+  </form>
+
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Video Süresi</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Video süresi ve video içeriği ile ilgili detaylar için </p>
+    </div>
+    
+</ng-template>
+
+<ng-template #useragreementcontent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Kullanıcı Sözleşmesini</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Kullanıcı Sözleşmesi hakkında herşey </p>
+    </div>
+    
+</ng-template>
+
+<ng-template #conditions let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Katılım koşullarını</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Katılım koşullarını hakkında herşey </p>
+    </div>
+    
+</ng-template>
