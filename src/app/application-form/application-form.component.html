@@ -15,15 +15,29 @@
 
 <div class="container">
 
-  <form>
+  <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="form-group col-md-6">
-        <label for="studentnamesurname" style="font-size: 16px;">Öğrencinin Adı Soyadı</label>
-        <input type="text" class="form-control" id="studentnamesurname" aria-describedby="namesurname" />
+        <label for="studentNameSurname" style="font-size: 16px;">Öğrencinin Adı Soyadı</label>
+
+        <input type="text" class="form-control" id="studentNameSurname" [class.is-invalid]="studentNameSurname.invalid && studentNameSurname.touched"
+          formControlName="studentNameSurname" />
+        <div *ngIf="studentNameSurname.invalid && studentNameSurname.touched">
+          <small class="text-danger" *ngIf="studentNameSurname.errors?.required">Username is required</small>
+          <small class="text-danger" *ngIf="studentNameSurname.errors?.minlength">Username must be at least 3 characters</small>
+        </div>
       </div>
       <div class="form-group col-md-6">
-        <label for="studentnamessmartphnonenumberrname" style="font-size: 16px;">Ceptelefonu Numarası</label>
-        <input type="text" class="form-control" id="smartphnonenumber" aria-describedby="smartphnonenumber" />
+        <label for="phonenumber" style="font-size: 16px;">Ceptelefonu Numarası</label>
+        <input type="text" class="form-control" id="phonenumber" [class.is-invalid]="phonenumber.invalid && phonenumber.touched"
+          formControlName="phonenumber" />
+
+        <div *ngIf="phonenumber.invalid && phonenumber.touched">
+          <small class="text-danger" *ngIf="phonenumber.errors?.required">PhoneNumber is required</small>
+          <small class="text-danger" *ngIf="phonenumber.errors?.pattern">PhoneNumber is pattern</small>
+          <small class="text-danger" *ngIf="phonenumber.errors?.minlength">Phone Number must be at least 10 characters</small>
+          <small class="text-danger" *ngIf="phonenumber.errors?.maxlength">Phone Number must be at least 10 characters</small>
+        </div>
       </div>
     </div>
 
@@ -32,30 +46,48 @@
         <label for="studentemail">E-Posta
           <small style="font-size: 12px; color: #7D7D7D;"> (Sizinle e-mail yoluyla iletişime geçilecektir) </small>
         </label>
-        <input type="email" class="form-control" id="studentemail">
+        <input type="email" class="form-control" id="studentemail" [class.is-invalid]="studentemail.invalid && studentemail.touched"
+          formControlName="studentemail">
+        <div *ngIf="studentemail.invalid && studentemail.touched">
+          <small class="text-danger" *ngIf="studentemail.errors?.required">Email is required</small>
+          <small class="text-danger" *ngIf="studentemail.errors?.pattern">Email is pattern</small>
+        </div>
+
       </div>
 
       <div class="form-group col-md-6">
         <label for="studentemailreply">E-Posta
           <small style="font-size: 12px; color: #7D7D7D;"> (Tekrar) </small>
         </label>
-        <input type="email" class="form-control" id="studentemailreply">
+        <input type="email" class="form-control" id="studentemailreply" [class.is-invalid]="studentemailreply.invalid && studentemailreply.touched"
+          formControlName="studentemailreply">
+        <div *ngIf="studentemailreply.invalid && studentemailreply.touched">
+          <small class="text-danger" *ngIf="studentemailreply.errors?.required">Email is required</small>
+          <small class="text-danger" *ngIf="studentemailreply.errors?.pattern">Email is pattern</small>
+          <small class="text-danger" *ngIf="studentemailreply.errors?.mustMatch">Email is mutch</small>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
         <label for="shoolCity">Okulun Bulunduğu İl</label>
-        <select class="form-control" id="shoolCity">
+        <select class="form-control" id="shoolCity" [class.is-invalid]="shoolCity.invalid && shoolCity.shoolCity" formControlName="shoolCity">
           <option>İstanbul</option>
         </select>
+        <div *ngIf="shoolCity.invalid && shoolCity.touched">
+          <small class="text-danger" *ngIf="shoolCity.errors?.required">Required</small>
+        </div>
       </div>
 
       <div class="form-group col-md-6">
         <label for="shooldistrict">Okulun Bulunduğu İlçe</label>
-        <select class="form-control" id="shooldistrict">
+        <select class="form-control" id="shooldistrict" [class.is-invalid]="shooldistrict.invalid && shooldistrict.shoolCity" formControlName="shooldistrict">
           <option>Ataşehir</option>
         </select>
+        <div *ngIf="shooldistrict.invalid && shooldistrict.touched">
+          <small class="text-danger" *ngIf="shooldistrict.errors?.required">Required</small>
+        </div>
       </div>
     </div>
 
@@ -64,15 +96,24 @@
         <label for="schoolname" style="font-size: 16px;">Okul Adı
           <small style="font-size: 12px; color: #7D7D7D;">(Eksiksiz olarak, kısaltımadan yazılmalıdır)</small>
         </label>
-        <input type="text" class="form-control" id="schoolname" aria-describedby="schoolname" />
+        <input type="text" class="form-control" id="schoolname" [class.is-invalid]="schoolname.invalid && schoolname.touched" formControlName="schoolname"
+        />
+        <div *ngIf="schoolname.invalid && schoolname.touched">
+          <small class="text-danger" *ngIf="schoolname.errors?.minlength">Username must be at least 5 characters</small>
+          <small class="text-danger" *ngIf="schoolname.errors?.required">required</small>
+        </div>
       </div>
 
       <div class="form-group col-md-6">
         <label for="studentBirthday" style="font-size: 16px;">Doğum Tarihi</label>
         <div class="input-group">
-          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="studentBirthday"
+            [class.is-invalid]="studentBirthday.invalid && studentBirthday.touched">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+          <div *ngIf="studentBirthday.invalid && studentBirthday.touched">
+            <small class="text-danger" *ngIf="studentBirthday.errors?.required">required</small>
           </div>
         </div>
       </div>
@@ -81,16 +122,27 @@
 
     <div class="row">
       <div class="form-group col-md-3">
-        <label for="file-upload" class="custom-file-upload" [hidden]="show">
+        <label for="file-upload" class="custom-file-upload" [hidden]="videoSelected">
           <i class="fa fa-cloud-upload"></i> Videonu Yükle
         </label>
-       
-        <div [hidden]="!show" aria-valuemin="0" role="progressbar" class="progress custom-file-upload progress-bar bg-warning progress-bar-animated progress-bar-striped"
-          [attr.aria-valuenow]="progressCount" aria-valuemax="100" [style.width.%]="progressCount" [style.height.rem]='2'>
 
+        <label [hidden]="!videoSelected">
+          {{videoFile?.name}}
+          <span style="color: red" (click)="videoFile = undefined ; videoSelected = false"> kaldır! </span>
+        </label>
+
+        <div [hidden]="!uploading" aria-valuemin="0" role="progressbar" class="progress custom-file-upload progress-bar bg-warning progress-bar-animated progress-bar-striped"
+          [attr.aria-valuenow]="progressCount" aria-valuemax="100" [style.width.%]="progressCount" [style.height.rem]='2'>
           <i style="color:black">{{progressCount}}%</i>
         </div>
-        <input id="file-upload" type="file" (change)="fileUpload($event)" accept="video/*" />
+
+        <input type="file" id="file-upload" [class.is-invalid]="video.invalid && !video.pristine" (change)="checkVideoSizeAndDuration($event)"
+          formControlName="video" class="form-control" accept="video/*" />
+        <div *ngIf="video.invalid && !video.pristine">
+          <small class="text-danger" *ngIf="video.errors?.required">Video is required</small>
+          <small class="text-danger" *ngIf="video.errors?.size">{{video.errors?.size}}</small>
+          <small class="text-danger" *ngIf="video.errors?.duration">{{video.errors?.duration}}</small>
+        </div>
       </div>
       <div class="form-group col-md-9">
         <button type="button" class="btn btn-link" (click)="open(content)">Video süresi ve video içeriği ile ilgili detaylar için tıklayın.</button>
@@ -99,32 +151,34 @@
 
     <div class="row">
       <div class="form-group col-md-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="useragreement">
-          <label class="form-check-label" for="useragreement">
-            <span (click)="open(useragreementcontent)" style="cursor: pointer; color:#0056b3;">Kullanıcı Sözleşmesini</span> okudum ve kabul ediyorum.
-          </label>
-
+        <input class="form-check-input" type="checkbox" id="useragreement" [class.is-invalid]="useragreement.invalid && !useragreement.pristine"
+          formControlName="useragreement">
+        <label class="form-check-label" for="useragreement">
+          <span (click)="open(useragreementcontent)" style="cursor: pointer; color:#0056b3;">Kullanıcı Sözleşmesini okudum ve kabul ediyorum.</span>
+        </label>
+        <div *ngIf="useragreement.invalid && !useragreement.pristine">
+          <small class="text-danger" *ngIf="useragreement.errors?.required">useragreement is required</small>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="conditions">
-          <label class="form-check-label" for="conditions">
-            <span (click)="open(conditions)" style="cursor: pointer; color:#0056b3;">Katılım koşullarını</span> okudum ve kabul ediyorum.
-          </label>
+        <input class="form-check-input" type="checkbox" id="conditions" [class.is-invalid]="conditions.invalid && !conditions.pristine"
+          formControlName="conditions">
+        <label class="form-check-label" for="conditions">
+          <span (click)="open(conditionscontent)" style="cursor: pointer; color:#0056b3;">Katılım koşullarını okudum ve kabul ediyorum.</span>
+        </label>
+        <div *ngIf="conditions.invalid && !conditions.pristine">
+          <small class="text-danger" *ngIf="conditions.errors?.required">Conditions is required</small>
         </div>
       </div>
     </div>
 
 
     <div class="row">
-
       <div class="form-group col-md-6">
-        <button type="button" class="btn btn-dark btn-lg">GÖNDER</button>
+        <button type="button" [disabled]="!applicationForm.valid" type="submit" class="btn btn-dark btn-lg">GÖNDER</button>
       </div>
 
     </div>
@@ -165,7 +219,7 @@
 
 </ng-template>
 
-<ng-template #conditions let-modal>
+<ng-template #conditionscontent let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Katılım koşullarını</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
