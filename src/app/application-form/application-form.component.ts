@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { VideoUploadService } from '../video-upload.service';
+import { SubscriptionLike as ISubscription } from "rxjs";
 
 @Component({
   selector: 'app-application-form',
   templateUrl: './application-form.component.html',
-  styleUrls: ['./application-form.component.css']
+  styleUrls: ['./application-form.component.css'],
+  providers: [VideoUploadService]
 })
-export class ApplicationFormComponent implements OnInit {
+export class ApplicationFormComponent implements OnInit, OnDestroy {
   closeResult: string;
   model: NgbDateStruct;
+  sub: ISubscription;
+  show : Boolean = false;
+  progressCount: Number = 0;
   date: {year: number, month: number};
 
   constructor(private videoUploadService: VideoUploadService, 
@@ -18,6 +23,24 @@ export class ApplicationFormComponent implements OnInit {
      private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.sub = this.videoUploadService.output.subscribe(v => {
+      if(v) {
+        if(v === 'ERROR') {
+
+        } else if(v === 'Finished') {
+          
+        } else {
+          this.progressCount = v;
+          if(this.progressCount > 100) {
+              this.progressCount = 100;
+          }
+        }
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   open(content) {
@@ -40,9 +63,11 @@ export class ApplicationFormComponent implements OnInit {
   }
 
   fileUpload(event) {
-    alert('file selected');
     var file = event.target.files[0]; 
-    this.videoUploadService.checkVideoSizeAndDuration(file);
+    //this.videoUploadService.checkVideoSizeAndDuration(file);
+    this.show = true;
+    this.videoUploadService.prepareUpload(file);
+
   }
 
 }

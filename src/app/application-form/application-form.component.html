@@ -70,7 +70,7 @@
       <div class="form-group col-md-6">
         <label for="studentBirthday" style="font-size: 16px;">Doğum Tarihi</label>
         <div class="input-group">
-          <input class="form-control" placeholder="yyyy-mm-dd" name="dp"  ngbDatepicker #d="ngbDatepicker">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
           </div>
@@ -80,12 +80,20 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-12">
-        <label for="file-upload" class="custom-file-upload">
+      <div class="form-group col-md-3">
+        <label for="file-upload" class="custom-file-upload" [hidden]="show">
           <i class="fa fa-cloud-upload"></i> Videonu Yükle
-      </label>
-      <input id="file-upload" type="file" (change)="fileUpload($event)" accept="video/*"/>
-      <button type="button" class="btn btn-link" (click)="open(content)" >Video süresi ve video içeriği ile ilgili detaylar için tıklayın.</button>
+        </label>
+       
+        <div [hidden]="!show" aria-valuemin="0" role="progressbar" class="progress custom-file-upload progress-bar bg-warning progress-bar-animated progress-bar-striped"
+          [attr.aria-valuenow]="progressCount" aria-valuemax="100" [style.width.%]="progressCount" [style.height.rem]='2'>
+
+          <i style="color:black">{{progressCount}}%</i>
+        </div>
+        <input id="file-upload" type="file" (change)="fileUpload($event)" accept="video/*" />
+      </div>
+      <div class="form-group col-md-9">
+        <button type="button" class="btn btn-link" (click)="open(content)">Video süresi ve video içeriği ile ilgili detaylar için tıklayın.</button>
       </div>
     </div>
 
@@ -94,7 +102,7 @@
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="useragreement">
           <label class="form-check-label" for="useragreement">
-           <span (click)="open(useragreementcontent)" style="cursor: pointer; color:#0056b3;">Kullanıcı Sözleşmesini</span> okudum ve kabul ediyorum.
+            <span (click)="open(useragreementcontent)" style="cursor: pointer; color:#0056b3;">Kullanıcı Sözleşmesini</span> okudum ve kabul ediyorum.
           </label>
 
         </div>
@@ -115,16 +123,16 @@
 
     <div class="row">
 
-        <div class="form-group col-md-6">
-            <button type="button" class="btn btn-dark btn-lg">GÖNDER</button>
-        </div>
+      <div class="form-group col-md-6">
+        <button type="button" class="btn btn-dark btn-lg">GÖNDER</button>
+      </div>
 
     </div>
 
     <div class="row">
-        <div class="form-group col-md-12">
-            <small> * Form ile ilgili sorularınız için, haftaiçi 09.00 - 18.00 arası 0216 418 43 97 numaramızdan bize ulaşabilirsiniz.</small>
-        </div>
+      <div class="form-group col-md-12">
+        <small> * Form ile ilgili sorularınız için, haftaiçi 09.00 - 18.00 arası 0216 418 43 97 numaramızdan bize ulaşabilirsiniz.</small>
+      </div>
     </div>
 
   </form>
@@ -132,40 +140,40 @@
 </div>
 
 <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Video Süresi</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Video süresi ve video içeriği ile ilgili detaylar için </p>
-    </div>
-    
+  <div class="modal-header">
+    <h4 class="modal-title">Video Süresi</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Video süresi ve video içeriği ile ilgili detaylar için </p>
+  </div>
+
 </ng-template>
 
 <ng-template #useragreementcontent let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Kullanıcı Sözleşmesini</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Kullanıcı Sözleşmesi hakkında herşey </p>
-    </div>
-    
+  <div class="modal-header">
+    <h4 class="modal-title">Kullanıcı Sözleşmesini</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Kullanıcı Sözleşmesi hakkında herşey </p>
+  </div>
+
 </ng-template>
 
 <ng-template #conditions let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Katılım koşullarını</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Katılım koşullarını hakkında herşey </p>
-    </div>
-    
+  <div class="modal-header">
+    <h4 class="modal-title">Katılım koşullarını</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Katılım koşullarını hakkında herşey </p>
+  </div>
+
 </ng-template>
